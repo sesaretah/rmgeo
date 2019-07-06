@@ -47,10 +47,14 @@
 /* Syntax Highlighting - see ./syntax.css */
   .highlight pre {
     font-size: 95%;
-    padding: 0.8em;
+    padding: 0.8em !important;
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #eee;
+  }
+
+  .prettyprint pre {
+
   }
 
 /**

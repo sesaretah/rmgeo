@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/syntax.css">
 
     <!-- Custom CSS -->
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <link rel="stylesheet" href="/main.css">
   </head>
   <body>
@@ -20,23 +22,24 @@
 
 <p>GeoJSON is a format for encoding a variety of geographic data structures.</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feature"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"geometry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Point"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">125.6</span><span class="p">,</span><span class="w"> </span><span class="mf">10.1</span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dinagat Islands"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span></code></pre></figure>
+<figure class="highlight">
+  <pre class="prettyprint">
+  <code data-lang="language-bash">
+    <span class="language-curl">
+curl -d '{"type": "Feature", "geometry": { "type": "Point", "coordinates":
+[8.780030, 50.240719] }, "properties": { "name": "test" }}' -X POST -H "Content-Type:
+application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/2
+    </span>
+  </code>
+</pre>
+</figure>
 
 <p>GeoJSON supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
 <code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
 objects with additional properties are <code class="highlighter-rouge">Feature</code> objects. Sets of features are
 contained by <code class="highlighter-rouge">FeatureCollection</code> objects.</p>
 
-<h2 id="the-geojson-specification-rfc-7946"><a href="https://tools.ietf.org/html/rfc7946">The GeoJSON Specification (RFC 7946)</a></h2>
+<h3 id="the-geojson-specification-rfc-7946"><a href="https://tools.ietf.org/html/rfc7946">The GeoJSON Specification (RFC 7946)</a></h3>
 
 <p>In 2015, the Internet Engineering Task Force (IETF), in conjunction with the
 original specification authors, formed a <a href="https://datatracker.ietf.org/wg/geojson/charter/">GeoJSON
@@ -49,5 +52,7 @@ and is the new standard specification of the GeoJSON format, replacing the
 
     </section>
 
+
   </body>
+
 </html>
