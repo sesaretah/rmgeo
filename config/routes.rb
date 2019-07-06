@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       post '/areas', to: 'api#areas'
-      post '/inside_checker/:id', to: 'api#inside_checker'
+      post '/contains/:id', to: 'api#contains'
     end
     namespace 'v2' do
 

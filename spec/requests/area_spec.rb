@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'POST /api/v1/areas' do
   # valid payload
 
-  context 'when the request is valid' do
+  context 'when the request is valid geojson feature collection' do
 
     before { post '/api/v1/areas', params: FakeGeo.feature_collection, as: :json}
     it 'creates an area' do
@@ -16,7 +16,7 @@ describe 'POST /api/v1/areas' do
   end
 
   context 'when the request is invalid' do
-    before { post '/api/v1/areas', params: { geo_json: nil } }
+    before { post '/api/v1/areas', params: { } }
 
     it 'returns status code 422' do
       expect(response).to have_http_status(422)
