@@ -12,6 +12,7 @@ module JsonValidator
     end
   end
 
+  #Checks if the given params is a geojson point, responds 422 if it is not
   def is_point?
     point_data = RGeo::GeoJSON.decode(params.to_json)
     if point_data.blank? || point_data.geometry.geometry_type.to_s != 'Point'
@@ -19,6 +20,7 @@ module JsonValidator
     end
   end
 
+  #Checks if the given params is a geojson feature collection, responds 422 if it is not
   def is_collection?
     collection_data = RGeo::GeoJSON.decode(params.to_json)
     if collection_data.blank? || !defined?(collection_data.size) || collection_data.size.blank?

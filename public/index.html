@@ -18,10 +18,36 @@
   <body>
     <section class="content">
       <article class="splash">
-<h1 id="geojson"><span class="fkin">G</span>eo<span class="fkin">J</span>SON</h1>
+<p>Given a set of areas and a point, this API checks wheter the point falls whithin the area or not. The acceptable format for both point and area is the standardized GeoJson format.<p>
+<p>GeoJSON is a format for encoding a variety of geographic data structures. It supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
+<code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
+objects with additional properties are <code class="highlighter-rouge">Feature</code> objects. Sets of features are
+contained by <code class="highlighter-rouge">FeatureCollection</code> objects.</p>
+<p>This API only accepts <code class="highlighter-rouge">FeatureCollection</code>. The collection must be composed of
+one or more <code class="highlighter-rouge">Polygon</code>. The following example shows an acceptable GeoJSON's <code class="highlighter-rouge">FeatureCollection</code> for the API:
 
-<p>GeoJSON is a format for encoding a variety of geographic data structures.</p>
+</p>
+<figure class="highlight">
+  <pre class="prettyprint">
+  <code data-lang="language-json">
+    <span class="language-curl">
+{ "type": "FeatureCollection", "features": [{ "type": "Feature", "properties": {},
+  "geometry": { "type": "Polygon", "coordinates": [ [
+    [ 7.36083984375, 50.666872321810715 ],
+    [ 8.19580078125, 49.82380908513249 ], [ 10.634765625, 50.190967765585604 ],
+    [ 10.72265625, 51.481382896100975 ], [ 8.76708984375, 51.52241608253253 ],
+    [ 7.36083984375, 50.666872321810715 ] ] ] } }]}
+    </span>
+  </code>
+</pre>
+</figure>
+<p>The above collection is composed of a polygon area which is highlighted in the map, as follows:</p>
+<img src='de.png' class="center"/>
 
+<h4>Version 1 (v1)</h4>
+<p>Version 1 uses <a href="https://github.com/rgeo/rgeo">rgeo</a> library to process incoming geo-json data and to calculate wheter the point falls whithin the area or not.
+It has two basic functionalities. i.e., <code class="highlighter-rouge">contains</code> and <code class="highlighter-rouge">areas</code>.
+</p>
 <figure class="highlight">
   <pre class="prettyprint">
   <code data-lang="language-bash">
@@ -34,10 +60,7 @@ application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/2
 </pre>
 </figure>
 
-<p>GeoJSON supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
-<code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
-objects with additional properties are <code class="highlighter-rouge">Feature</code> objects. Sets of features are
-contained by <code class="highlighter-rouge">FeatureCollection</code> objects.</p>
+<p>GeoJSON </p>
 
 <h3 id="the-geojson-specification-rfc-7946"><a href="https://tools.ietf.org/html/rfc7946">The GeoJSON Specification (RFC 7946)</a></h3>
 

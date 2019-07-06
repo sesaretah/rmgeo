@@ -18,7 +18,7 @@ module Api::V1
       end
     end
 
-    # POST '/api/v1/contains/:id' where :id is id of an area. Extracts a geojson point from ...
+    # POST '/api/v1/contains/:id' where :id is the identifier of an area. Extracts a geojson point from ...
     #... params and checks if area contains the point, responds 422 if point doesn't conform with RFC 7946
     def contains
       json_response([inside: overlap?(@area, params)])
