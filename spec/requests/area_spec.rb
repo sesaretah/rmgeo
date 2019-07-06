@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'POST /api/v1/areas' do
-  # valid payload
 
   context 'when the request is valid geojson feature collection' do
 

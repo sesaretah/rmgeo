@@ -37,3 +37,5 @@ en:
   db_error: 'Database error; please contact admin'
   geo_json_recieved: 'Geo_json recieved; please keep the ID for future correspondence'
   incompatible_geomtry: 'The provided geometric elements are incompatible'
+  routing_error: 'The provided link is not valid'
+  bad_request: 'The passed parameters are not valid'

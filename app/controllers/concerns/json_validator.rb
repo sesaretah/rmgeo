@@ -11,4 +11,18 @@ module JsonValidator
       return false
     end
   end
+
+  def is_point?
+    point_data = RGeo::GeoJSON.decode(params.to_json)
+    if point_data.blank? || point_data.geometry.geometry_type.to_s != 'Point'
+      json_response(nil, :unprocessable_entity, :incompatible_geomtry)
+    end
+  end
+
+  def is_collection?
+    collection_data = RGeo::GeoJSON.decode(params.to_json)
+    if collection_data.blank? || !defined?(collection_data.size) || collection_data.size.blank?
+      json_response(nil, :unprocessable_entity, :incompatible_geomtry)
+    end
+  end
 end
