@@ -6,7 +6,7 @@ module JsonValidator
     if !geo_data.blank?
       return true
     else
-      json_response(nil, :error, :invalid_geojson_type)
+      json_response(nil, :unprocessable_entity, :invalid_geojson_type)
       return false
     end
   end

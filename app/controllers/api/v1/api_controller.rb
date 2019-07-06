@@ -7,9 +7,9 @@ module Api::V1
     before_action :geo_json_valid?, only: [:areas, :inside_checker]
 
     def areas
-      @area = Area.new(geo_json: params[:api].to_json)
+      @area = Area.new(geo_json: params.to_json)
       if @area.save
-        json_response([id: @area.id], :ok, :geo_json_recieved)
+        json_response([id: @area.id], :created, :geo_json_recieved)
       else
         json_response(nil, :error, :db_error)
       end
@@ -22,7 +22,7 @@ module Api::V1
     def set_area
       @area = Area.find_by_id(params[:id])
       if @area.blank?
-        json_response(nil, :error, :invalid_id)
+        json_response(nil, :unprocessable_entity, :invalid_id)
       end
     end
 
