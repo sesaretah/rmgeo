@@ -39,4 +39,4 @@ en:
   incompatible_geomtry: 'The provided geometric elements are incompatible'
   routing_error: 'The provided link is not valid'
   bad_request: 'The passed parameters are not valid'
-  location_saved: 'Location saved; please keep the ID for future correspondence'
+  location_saved: 'Location saved; please keep the ID for future correspondence.'
