@@ -23,7 +23,7 @@ describe 'POST /api/v1/areas' do
 
     it 'returns a validation failure message' do
       expect(response.body)
-      .to match(/{\"result\":null,\"message\":\"Invalid geo_json type\"}/)
+      .to match(/{\"result\":null,\"message\":\"The provided geometric elements are incompatible\"}/)
     end
   end
 end
