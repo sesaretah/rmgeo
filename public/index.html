@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>GeoJSON Assignment</title>
+  <title>GeoJSON PIP API</title>
   <meta name="viewport" content="width=device-width">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
 
@@ -18,7 +18,8 @@
 <body>
   <section class="content">
     <article class="splash">
-      <p>Given a set of areas and a point, this API checks wheter the point falls whithin the area or not. The acceptable format for both point and area is the standardized GeoJson format.</p>
+      <h1 id="geojson"><span class="fkin">G</span>eo<span class="fkin">J</span>SON PIP API</h1>
+      <p>Given a set of polygons and a point, this API checks wheter the point falls whithin one of  polygons or not. This problem is well-known in computational geomtry as <a href='https://en.wikipedia.org/wiki/Point_in_polygon'>point-in-polygon (PIP)</a> problem. The acceptable format for both point and area is the standardized GeoJson format.</p>
       <p>
         GeoJSON is a format for encoding a variety of geographic data structures. It supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
         <code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
@@ -56,7 +57,7 @@
         <li>Accepts GeoJson's <code class="highlighter-rouge">FeatureCollection</code> as param</li>
         <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
         <li>The path is <code class="highlighter-rouge">/api/v1/areas</code>.</li>
-        <li>Returns an <code class="highlighter-rouge">Array</code> with the <code class="highlighter-rouge">id</code> of area, if operation is successful</li>
+        <li>Returns result <code class="highlighter-rouge">Array</code> with the <code class="highlighter-rouge">id</code> of area, if operation is successful</li>
         <li>It returns <code class="highlighter-rouge">422</code> error if it can not parse the input</li>
       </ul>
       <p>
@@ -95,7 +96,7 @@ https://warm-tor-85726.herokuapp.com/api/v1/areas
   <li>Accepts GeoJson's <code class="highlighter-rouge">Point</code> as param.</li>
   <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
   <li>The path is <code class="highlighter-rouge">/api/v1/contains/id</code>. Where <code class="highlighter-rouge">id</code> is equal to the id of the area.</li>
-  <li>Returns an <code class="highlighter-rouge">Array</code> with the <code class="highlighter-rouge">id</code> of area, if operation is successful.</li>
+  <li>Returns result <code class="highlighter-rouge">Array</code> with <code class="highlighter-rouge">{"inside":true}</code> if point is within the area and <code class="highlighter-rouge">{"inside":false}</code> if not</li>
   <li>It returns <code class="highlighter-rouge">422</code> error if it can not parse the input.</li>
 </ul>
 <p>
@@ -129,6 +130,83 @@ application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/3
 <p>
   The <code class="highlighter-rouge">message</code> part of the response in each endpoint contains the details of successful operations or errors.
 </p>
+
+<h4>Version 2 (v2)</h4>
+<p>This version is same as the previous version with the same endpoints. However it uses our custom PIP algorithm. The only difference is the urls which has <code class="highlighter-rouge">/v2/</code> instead of <code class="highlighter-rouge">/v1/</code></p>
+
+<h4>Version 3 (v3)</h4>
+Version 3 accepts location names as <code class="highlighter-rouge">string</code>. It tries to find matching location names and stores its geo-location (this is done in the background). It has 4 endpoints, as follows:
+<p>1. <code class="highlighter-rouge">areas</code> endpoint: same as <code class="highlighter-rouge">v1</code></p>
+<p>2. <code class="highlighter-rouge">locations</code> endpoint: same as <code class="highlighter-rouge">v1</code></p>
+<ul>
+  <li>Accepts <code class="highlighter-rouge">string</code> as location's name</li>
+  <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
+  <li>The path is <code class="highlighter-rouge">/api/v3/locations</code></li>
+  <li>Returns an <code class="highlighter-rouge">Array</code> with the <code class="highlighter-rouge">id</code> of location, if operation is successful</li>
+  <li>It returns <code class="highlighter-rouge">422</code> error if it can not handle the input</li>
+</ul>
+<p>
+  The following example shows such operation:
+</p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-bash">
+<span class="language-curl">
+curl -d '{"name":"Frankfurt"}' -X POST  -H "Content-Type: application/json"
+https://warm-tor-85726.herokuapp.com/api/v3/locations
+
+</span>
+</code>
+</pre>
+</figure>
+
+<p>
+  The result of the above request is as follows:
+</p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-json">
+<span class="language-json">
+{"result":[{"id":2}],"message":"Location saved; please keep the ID ..."}
+</span>
+</code>
+</pre>
+</figure>
+
+<p>3. <code class="highlighter-rouge">contains</code></p>
+<ul>
+  <li>Accepts <code class="highlighter-rouge">id</code> of area and location, respectively</li>
+  <li>It supports <code class="highlighter-rouge">GET</code> method.</li>
+  <li>The path is <code class="highlighter-rouge">/api/v3/contains/:area_id/:location_id</code> where <code class="highlighter-rouge">:area_id</code> is equal to the id of the area and <code class="highlighter-rouge">:location_id</code> is location's id</li></li>
+  <li>Returns result <code class="highlighter-rouge">Array</code> with <code class="highlighter-rouge">{"inside":true}</code> if point is within the area and <code class="highlighter-rouge">{"inside":false}</code> if not</li>
+  <li>It returns <code class="highlighter-rouge">422</code> error if it can not handle the input</li>
+</ul>
+<p>
+  The following example shows such operation:
+</p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-bash">
+<span class="language-curl">
+curl https://warm-tor-85726.herokuapp.com/api/v3/contains/1/1
+</span>
+</code>
+</pre>
+</figure>
+
+<p>
+  The result of the above request is as follows:
+</p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-json">
+<span class="language-json">
+{"result":[{"inside":true}],"message":"Opreation was successful"}
+</span>
+</code>
+</pre>
+</figure>
+
       </article>
     </section>
   </body>
