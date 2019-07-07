@@ -8,3 +8,13 @@ To get the Rails server running locally:
 * `bundle install` to install all req'd dependencies
 * `rake db:migrate` to make all database migrations
 * `rails s` to start the local server
+
+## Authors
+
+* **Hossein Shafiei** - *Initial work* - [sesaretah](https://github.com/sesaretah)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
