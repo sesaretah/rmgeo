@@ -1,27 +1,24 @@
-module Api::V1
+module Api::V3
   class ApiController < ApplicationController
     include Response
     include JsonValidator
     include Geometry
     before_action :set_area, only: [:contains] # Checks if an area exists, responds 422 if it fails
+    before_action :set_location, only: [:contains] # Checks if the location exists, responds 422 if it fails
     before_action :geo_json_valid?, only: [:areas, :contains] # Checks if the given params conforms with RFC 7946 standard, responds 422 if it fails
     before_action :is_point?, only: [:contains] # Checks if the given params is a point, responds 422 if it fails
-    before_action :is_collection?, only: [:areas] # Checks if the params is a feature collecrion
 
-    # POST '/api/v1/areas' extracts a geojson and saves it in database, responds 500 if it fails
-    def areas
-      @area = Area.new(geo_json: params.to_json)
-      if @area.save
-        json_response([id: @area.id], :created, :geo_json_recieved)
+    def locations
+      @location = Location.new(name: params[:name])
+      if @location.save
+        json_response([id: @location.id], :created, :location_saved)
       else
         json_response(nil, :error, :db_error)
       end
     end
 
-    # POST '/api/v1/contains/:id' where :id is the identifier of an area. Extracts a geojson point from ...
-    #... params and checks if area contains the point, responds 422 if point doesn't conform with RFC 7946
     def contains
-      json_response([inside: pip?(@area, params)])
+      json_response([inside: custom_pip?(@area, params)])
     end
 
     private
@@ -29,7 +26,15 @@ module Api::V1
     def set_area
       @area = Area.find_by_id(params[:id])
       if @area.blank?
-        json_response(nil, :unprocessable_entity, :invalid_id)
+        json_response(nil, :unprocessable_entity, :invalid_area_id)
+      end
+    end
+
+    #Sets area, responds 422 if it doesn't exist
+    def set_location
+      @location = Location.find_by_id(params[:id])
+      if @location.blank?
+        json_response(nil, :unprocessable_entity, :invalid_location_id)
       end
     end
 

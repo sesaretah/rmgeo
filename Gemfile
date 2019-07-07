@@ -59,3 +59,4 @@ end
 gem 'geokit'
 gem 'rgeo'
 gem 'rgeo-geojson'
+gem 'sidekiq'

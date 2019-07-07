@@ -7,7 +7,11 @@ Rails.application.routes.draw do
       post '/contains/:id', to: 'api#contains'
     end
     namespace 'v2' do
+      post '/contains/:id', to: 'api#contains'
+    end
 
+    namespace 'v3' do
+      post '/locations', to: 'api#locations'
     end
   end
 
