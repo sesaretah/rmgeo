@@ -16,6 +16,7 @@ module Geometry
   end
 
   def custom_pip?(area, point_param)
+    p point_param
     @flag = false
     for feature in JSON.parse(area.geo_json)['features']
       if Pip.contains?(feature.to_json, point_param.to_json)
@@ -23,5 +24,10 @@ module Geometry
       end
     end
     return @flag
+  end
+
+  def geo_jsonify(location)
+    return {type: 'Feature', geometry:{ type: 'Point', coordinates: [location.longitude.to_f, location.latitude.to_f]},   "properties": {
+    name: location.name}}
   end
 end

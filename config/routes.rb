@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     namespace 'v3' do
       post '/locations', to: 'api#locations'
+      get '/contains/:area_id/:id', to: 'api#contains'
     end
   end
 
