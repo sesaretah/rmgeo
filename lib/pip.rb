@@ -4,6 +4,7 @@ module Pip
   #For more information please refer to: https://en.wikipedia.org/wiki/Point_in_polygon
   #Our implementaion is based on ray casting algorithm and is inspired by https://gist.github.com/kidbrax/1236253
 
+  #This method accepts valid geo-json polygon feature as the first paramter and point feature as the second 
   def contains?(polygon, point)
     extract_points(polygon, point)
     @flag = false
