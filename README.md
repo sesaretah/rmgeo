@@ -8,14 +8,15 @@ To get the Rails server running locally:
 * `bundle install` to install all req'd dependencies
 * `rake db:migrate` to make all database migrations
 * `rails s` to start the local server
-
+## Usage
+For full documentaion please refer to the [project's homepage](https://warm-tor-85726.herokuapp.com/)
 ## Running the tests
 
 `bundle exec rspec`
 
 ## Authors
 
-* *Hossein Shafiei* - *Initial work* - [sesaretah](https://github.com/sesaretah)
+* *Hossein Shafiei* - [sesaretah](https://github.com/sesaretah)
 
 ## License
 
