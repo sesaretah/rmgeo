@@ -5,8 +5,9 @@ module Api::V3
     include Geometry
     before_action :set_area, only: [:contains] # Checks if an area exists, responds 422 if it fails
     before_action :set_location, only: [:contains] # Checks if the location exists, responds 422 if it fails
-    
 
+    # POST /api/v3/locations, Accepts location name and saves it id database, there is a ..
+    #.. after_create callback which extracts the longitude/latitude of the location if it exists
     def locations
       @location = Location.new(name: params[:name])
       if @location.save
@@ -16,6 +17,7 @@ module Api::V3
       end
     end
 
+    # GET /api/v3/contains/area_id/location_id checks if area contains the location
     def contains
       json_response([inside: custom_pip?(@area, geo_jsonify(@location))])
     end
