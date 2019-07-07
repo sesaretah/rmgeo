@@ -1,81 +1,121 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>GeoJSON</title>
-    <meta name="viewport" content="width=device-width">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>GeoJSON</title>
+  <meta name="viewport" content="width=device-width">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet" type="text/css">
 
-    <!-- syntax highlighting CSS -->
-    <link rel="stylesheet" href="/syntax.css">
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="/syntax.css">
 
-    <!-- Custom CSS -->
+  <!-- Custom CSS -->
 
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <link rel="stylesheet" href="/main.css">
-  </head>
-  <body>
-    <section class="content">
-      <article class="splash">
-<p>Given a set of areas and a point, this API checks wheter the point falls whithin the area or not. The acceptable format for both point and area is the standardized GeoJson format.<p>
-<p>GeoJSON is a format for encoding a variety of geographic data structures. It supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
-<code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
-objects with additional properties are <code class="highlighter-rouge">Feature</code> objects. Sets of features are
-contained by <code class="highlighter-rouge">FeatureCollection</code> objects.</p>
-<p>This API only accepts <code class="highlighter-rouge">FeatureCollection</code>. The collection must be composed of
-one or more <code class="highlighter-rouge">Polygon</code>. The following example shows an acceptable GeoJSON's <code class="highlighter-rouge">FeatureCollection</code> for the API:
-
-</p>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+  <section class="content">
+    <article class="splash">
+      <p>Given a set of areas and a point, this API checks wheter the point falls whithin the area or not. The acceptable format for both point and area is the standardized GeoJson format.</p>
+      <p>
+        GeoJSON is a format for encoding a variety of geographic data structures. It supports the following geometry types: <code class="highlighter-rouge">Point</code>, <code class="highlighter-rouge">LineString</code>,
+        <code class="highlighter-rouge">Polygon</code>, <code class="highlighter-rouge">MultiPoint</code>, <code class="highlighter-rouge">MultiLineString</code>, and <code class="highlighter-rouge">MultiPolygon</code>. Geometric
+        objects with additional properties are <code class="highlighter-rouge">Feature</code> objects. Sets of features are
+        contained by <code class="highlighter-rouge">FeatureCollection</code> objects.
+      </p>
+      <p>This API only accepts <code class="highlighter-rouge">FeatureCollection</code>. The collection must be composed of
+        one or more <code class="highlighter-rouge">Polygon</code>. The following example shows an acceptable GeoJSON's <code class="highlighter-rouge">FeatureCollection</code> for the API:
+      </p>
 <figure class="highlight">
-  <pre class="prettyprint">
-  <code data-lang="language-json">
-    <span class="language-curl">
-{ "type": "FeatureCollection", "features": [{ "type": "Feature", "properties": {},
-  "geometry": { "type": "Polygon", "coordinates": [ [
-    [ 7.36083984375, 50.666872321810715 ],
-    [ 8.19580078125, 49.82380908513249 ], [ 10.634765625, 50.190967765585604 ],
-    [ 10.72265625, 51.481382896100975 ], [ 8.76708984375, 51.52241608253253 ],
-    [ 7.36083984375, 50.666872321810715 ] ] ] } }]}
-    </span>
-  </code>
+<pre class="prettyprint">
+<code data-lang="language-json">
+<span class="language-curl">
+ { "type": "FeatureCollection", "features": [{ "type": "Feature", "properties": {},
+ "geometry": { "type": "Polygon", "coordinates": [ [
+ [ 7.36083984375, 50.666872321810715 ],
+ [ 8.19580078125, 49.82380908513249 ], [ 10.634765625, 50.190967765585604 ],
+ [ 10.72265625, 51.481382896100975 ], [ 8.76708984375, 51.52241608253253 ],
+ [ 7.36083984375, 50.666872321810715 ] ] ] } }]}
+</span>
+</code>
 </pre>
 </figure>
-<p>The above collection is composed of a polygon area which is highlighted in the map, as follows:</p>
-<img src='de.png' class="center"/>
+      <p>The above example is composed of a polygon area which is highlighted in the map, as follows:</p>
+      <img src='de.png' class="center"/>
 
-<h4>Version 1 (v1)</h4>
-<p>Version 1 uses <a href="https://github.com/rgeo/rgeo">rgeo</a> library to process incoming geo-json data and to calculate wheter the point falls whithin the area or not.
-It has two basic functionalities. i.e., <code class="highlighter-rouge">contains</code> and <code class="highlighter-rouge">areas</code>.
+      <h4>Version 1 (v1)</h4>
+      <p>
+        Version 1 uses <a href="https://github.com/rgeo/rgeo">rgeo</a> library to process incoming GeoJSON data and to calculate wheter the point falls whithin the area or not.
+        It has two basic endpoints i.e., <code class="highlighter-rouge">contains</code> and <code class="highlighter-rouge">areas</code>.
+      </p>
+      <p>1. <code class="highlighter-rouge">areas</code> endpoint</p>
+
+      <ul>
+        <li>Accepts GeoJson's <code class="highlighter-rouge">FeatureCollection</code> as param</li>
+        <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
+        <li>The path is <code class="highlighter-rouge">/api/v1/areas</code>.</li>
+        <li>Returns an <code class="highlighter-rouge">Array</code> with the id of area, if operation is successful</li>
+        <li>It returns <code class="highlighter-rouge">422</code> error if it can not parse the input</li>
+      </ul>
+      <p>
+        The following example shows such operation:
+      </p>
+      <figure class="highlight">
+      <pre class="prettyprint">
+      <code data-lang="language-bash">
+      <span class="language-curl">
+curl -d '{ "type": "FeatureCollection", "features": [{ "type": "Feature",
+"properties": {}, "geometry": { "type": "Polygon", "coordinates": [ [
+[ 7.36083984375, 50.666872321810715 ], [ 8.19580078125, 49.82380908513249 ],
+[ 10.634765625, 50.190967765585604 ], [ 10.72265625, 51.481382896100975 ],
+[ 8.76708984375, 51.52241608253253 ], [ 7.36083984375, 50.666872321810715 ] ] ]
+} }]}' -X POST  -H "Content-Type: application/json"
+https://warm-tor-85726.herokuapp.com/api/v1/areas
+      </span>
+      </code>
+      </pre>
+      </figure>
+      <p>
+        The result of the above request is as follows:
+      </p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-json">
+<span class="language-json">
+{"result":[{"id":3}],"message":"Geo_json recieved; please keep the ID for ..."}
+</span>
+</code>
+</pre>
+</figure>
+
+<p>2. <code class="highlighter-rouge">contains</code> endpoint</p>
+<ul>
+  <li>Accepts GeoJson's <code class="highlighter-rouge">Point</code> as param.</li>
+  <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
+  <li>The path is <code class="highlighter-rouge">/api/v1/contains/id</code>. Where id is equal to the id of the area.</li>
+  <li>Returns an <code class="highlighter-rouge">Array</code> with the id of area, if operation is successful.</li>
+  <li>It returns <code class="highlighter-rouge">422</code> error if it can not parse the input.</li>
+</ul>
+<p>
+  The following example shows such operation:
 </p>
 <figure class="highlight">
-  <pre class="prettyprint">
-  <code data-lang="language-bash">
-    <span class="language-curl">
+<pre class="prettyprint">
+<code data-lang="language-bash">
+<span class="language-curl">
 curl -d '{"type": "Feature", "geometry": { "type": "Point", "coordinates":
 [8.780030, 50.240719] }, "properties": { "name": "test" }}' -X POST -H "Content-Type:
-application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/2
-    </span>
-  </code>
+application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/3
+</span>
+</code>
 </pre>
 </figure>
 
-<p>GeoJSON </p>
 
-<h3 id="the-geojson-specification-rfc-7946"><a href="https://tools.ietf.org/html/rfc7946">The GeoJSON Specification (RFC 7946)</a></h3>
-
-<p>In 2015, the Internet Engineering Task Force (IETF), in conjunction with the
-original specification authors, formed a <a href="https://datatracker.ietf.org/wg/geojson/charter/">GeoJSON
-WG</a> to standardize GeoJSON.
-<a href="https://tools.ietf.org/html/rfc7946">RFC 7946</a> was published in August 2016
-and is the new standard specification of the GeoJSON format, replacing the
-2008 GeoJSON specification.</p>
-
-</article>
-
+      <p>GeoJSON </p>
+      </article>
     </section>
-
-
   </body>
-
 </html>
