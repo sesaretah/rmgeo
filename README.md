@@ -9,11 +9,13 @@ To get the Rails server running locally:
 * `rake db:migrate` to make all database migrations
 * `rails s` to start the local server
 
+## Running the tests
+
+`bundle exec rspec`
+
 ## Authors
 
-* **Hossein Shafiei** - *Initial work* - [sesaretah](https://github.com/sesaretah)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* *Hossein Shafiei* - *Initial work* - [sesaretah](https://github.com/sesaretah)
 
 ## License
 
