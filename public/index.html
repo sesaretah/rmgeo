@@ -94,7 +94,7 @@ https://warm-tor-85726.herokuapp.com/api/v1/areas
 <ul>
   <li>Accepts GeoJson's <code class="highlighter-rouge">Point</code> as param.</li>
   <li>It supports <code class="highlighter-rouge">POST</code> method.</li>
-  <li>The path is <code class="highlighter-rouge">/api/v1/contains/id</code>. Where id is equal to the id of the area.</li>
+  <li>The path is <code class="highlighter-rouge">/api/v1/contains/id</code>. Where <code class="highlighter-rouge">id</code> is equal to the id of the area.</li>
   <li>Returns an <code class="highlighter-rouge">Array</code> with the id of area, if operation is successful.</li>
   <li>It returns <code class="highlighter-rouge">422</code> error if it can not parse the input.</li>
 </ul>
@@ -113,8 +113,22 @@ application/json" https://warm-tor-85726.herokuapp.com/api/v1/contains/3
 </pre>
 </figure>
 
+<p>
+  The result of the above request is as follows:
+</p>
+<figure class="highlight">
+<pre class="prettyprint">
+<code data-lang="language-json">
+<span class="language-json">
+{"result":[{"inside":true}],"message":"Opreation was successful"}
+</span>
+</code>
+</pre>
+</figure>
 
-      <p>GeoJSON </p>
+<p>
+  The <code class="highlighter-rouge">message</code> part of the response in each endpoint contains the details of successful operations or errors.
+</p>
       </article>
     </section>
   </body>
