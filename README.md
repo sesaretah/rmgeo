@@ -1,24 +1,2 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# GEOJSON PIP API
+Given a set of polygons and a point, this API checks wheter the point falls whithin one of polygons or not. This problem is well-known in computational geomtry as [point-in-polygon (PIP)](https://en.wikipedia.org/wiki/Point_in_polygon) problem. The acceptable format for both point and area is the standardized GeoJson format.
