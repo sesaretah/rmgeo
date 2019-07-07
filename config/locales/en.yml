@@ -40,3 +40,5 @@ en:
   routing_error: 'The provided link is not valid'
   bad_request: 'The passed parameters are not valid'
   location_saved: 'Location saved; please keep the ID for future correspondence.'
+  invalid_location_id: 'Invalid location ID'
+  invalid_area_id: 'Invalid Area ID'

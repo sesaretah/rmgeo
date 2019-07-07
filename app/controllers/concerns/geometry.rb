@@ -16,7 +16,6 @@ module Geometry
   end
 
   def custom_pip?(area, point_param)
-    p point_param
     @flag = false
     for feature in JSON.parse(area.geo_json)['features']
       if Pip.contains?(feature.to_json, point_param.to_json)
