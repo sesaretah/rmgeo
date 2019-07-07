@@ -3,8 +3,8 @@ Given a set of polygons and a point, this API checks wheter the point falls whit
 
 ## Getting Started
 To get the Rails server running locally:
-* [install ruby on rails on your machine](https://gorails.com/setup)
+* [Install ruby on rails on your machine](https://gorails.com/setup)
 * Clone this repo
-* bundle install to install all req'd dependencies
-* rake db:migrate to make all database migrations
-* rails s to start the local server
+* `bundle install` to install all req'd dependencies
+* `rake db:migrate` to make all database migrations
+* `rails s` to start the local server
