@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
   before_action :geo_json_valid?, only: [:areas] # Checks if the given params conforms with RFC 7946 standard, responds 422 if it fails
   before_action :is_collection?, only: [:areas] # Checks if the params is a feature collecrion
 
-
   # POST '/api/vx/areas' extracts a geojson and saves it in database, responds 500 if it fails
   # Since every version has this same functionality
   def areas
