@@ -13,6 +13,7 @@ describe 'POST /api/v1/areas' do
       expect(response).to have_http_status(201)
     end
   end
+  
 
   context 'when the request is valid geojson feature but not feature collection' do
 
